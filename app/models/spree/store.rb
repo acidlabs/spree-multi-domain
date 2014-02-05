@@ -18,11 +18,12 @@ module Spree
     scope :by_domain, lambda { |domain| where("domains like ?", "%#{domain}%") }
 
     has_attached_file :logo,
-      :styles => { :mini => '48x48>', :small => '100x100>', :medium => '250x250>' },
-      :default_style => :medium,
-      :url => 'stores/:id/:style/:basename.:extension',
-      :path => 'stores/:id/:style/:basename.:extension',
-      :convert_options => { :all => '-strip -auto-orient' }
+                      :styles => { :mini => '48x48>', :small => '100x100>', :medium => '250x250>' },
+                      :default_style => :medium,
+                      :url => '/images/stores/:id/:style/:basename.:extension',
+                      :path => '/images/stores/:id/:style/:basename.:extension',
+                      :default_url => "/assets/missing/:style.png",
+                      :convert_options => { :all => '-strip -auto-orient' }
 
     include Spree::Core::S3Support
     supports_s3 :logo
