@@ -56,5 +56,9 @@ module SpreeMultiDomain
     initializer 'spree.promo.register.promotions.rules' do |app|
       app.config.spree.promotions.rules << Spree::Promotion::Rules::Store
     end
+
+    initializer :assets do |config|
+      Rails.application.config.assets.paths << root.join("app", "assets", "images")
+    end
   end
 end
