@@ -1,0 +1,24 @@
+es:
+  spree:
+    back_to_store_list: Volver a lista de tiendas
+    default_currency: Default Currency
+    send_mail_as: Enviar correo como
+    logo: Logo
+    payment_method: Método de pago
+    shipping_method: Método de despacho
+    store: Tienda
+    stores: Tiendas
+    new_store: Nueva Tienda
+    domains: Dominios
+    stores_admin: "Tiendas & Dominios"
+    manage_stores: Configurar multiples tiendas y nombres de dominio asociados
+    editing_store: Editando Tienda
+    default: Default
+    store_name: Nombre
+    store_code: Código
+    promotion_rule_types:
+      store:
+        name: Tienda
+        description: "Tienda debe coincidir con uno de la lista"
+    store_rule:
+      choose_stores: "Escoja Tiendas"
