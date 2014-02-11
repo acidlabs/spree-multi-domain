@@ -20,8 +20,8 @@ module Spree
     has_attached_file :logo,
                       :styles => { :mini => '48x48>', :small => '100x100>', :medium => '250x250>' },
                       :default_style => :medium,
-                      :url => '/images/stores/:id/:style/:basename.:extension',
-                      :path => 'public/images/stores/:id/:style/:basename.:extension',
+                      :url => '/stores/:id/:style/:basename.:extension',
+                      :path => 'public/stores/:id/:style/:basename.:extension',
                       :default_url => "/assets/missing/:style.png",
                       :convert_options => { :all => '-strip -auto-orient' }
 
