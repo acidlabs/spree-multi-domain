@@ -37,6 +37,30 @@ module SpreeMultiDomain
       end
     end
 
+    initializer "templates dynamically" do |app|
+      ActionView::PartialRenderer.class_eval do
+        def find_template_with_multi_store(path, locals)
+          prefixes = path.include?(?/) ? [] : @lookup_context.prefixes
+
+          store_prefixes = prefixes
+          store_path     = path
+
+          if @view.respond_to?(:current_store) && @view.current_store && !@view.controller.is_a?(Spree::Admin::BaseController)
+            store_prefixes = store_prefixes.map{|i| i.gsub('spree/', "spree/#{@view.current_store.code}/")}
+            store_path     = store_path.gsub('spree/', "spree/#{@view.current_store.code}/")
+          end
+
+          begin
+            @lookup_context.find_template(store_path, store_prefixes, true, locals, @details)
+          rescue ::ActionView::MissingTemplate
+            @lookup_context.find_template(path, prefixes, true, locals, @details)
+          end
+        end
+
+        alias_method_chain :find_template, :multi_store
+      end
+    end
+
     initializer "current order decoration" do |app|
       require 'spree/core/controller_helpers/order'
       ::Spree::Core::ControllerHelpers::Order.module_eval do
