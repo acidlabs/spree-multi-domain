@@ -59,6 +59,22 @@ module SpreeMultiDomain
 
         alias_method_chain :find_template, :multi_store
       end
+
+      ActionView::TemplateRenderer.class_eval do
+        def find_template(name, prefixes = [], partial = false, keys = [], options = {})
+          store_prefixes = prefixes
+
+          if @view.respond_to?(:current_store) && @view.current_store && !@view.controller.is_a?(Spree::Admin::BaseController)
+            store_prefixes = store_prefixes.map{|i| i.gsub('spree/', "spree/#{@view.current_store.code}/")} unless store_prefixes.nil?
+          end
+
+          begin
+            @lookup_context.find_template(name, store_prefixes, partial, keys, options)
+          rescue ::ActionView::MissingTemplate
+            @lookup_context.find_template(name, prefixes, partial, keys, options)
+          end
+        end
+      end
     end
 
     initializer "current order decoration" do |app|
