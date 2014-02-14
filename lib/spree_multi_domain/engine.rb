@@ -46,8 +46,8 @@ module SpreeMultiDomain
           store_path     = path
 
           if @view.respond_to?(:current_store) && @view.current_store && !@view.controller.is_a?(Spree::Admin::BaseController)
-            store_prefixes = store_prefixes.map{|i| i.gsub('spree/', "spree/#{@view.current_store.code}/")}
-            store_path     = store_path.gsub('spree/', "spree/#{@view.current_store.code}/")
+            store_prefixes = (store_prefixes + store_prefixes.map{|i| i.gsub('spree/', "spree/#{@view.current_store.code}/")}).uniq unless store_prefixes.nil?
+            store_path     = (store_path + store_path.gsub('spree/', "spree/#{@view.current_store.code}/")).uniq unless store_path.nil?
           end
 
           begin
