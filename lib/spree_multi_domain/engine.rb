@@ -61,11 +61,11 @@ module SpreeMultiDomain
       end
 
       ActionView::TemplateRenderer.class_eval do
-        def find_template(name, prefixes = [], partial = false, keys = [], options = {})
+        def find_template_with_multi_store(name, prefixes = [], partial = false, keys = [], options = {})
           store_prefixes = prefixes
 
           if @view.respond_to?(:current_store) && @view.current_store && !@view.controller.is_a?(Spree::Admin::BaseController)
-            store_prefixes = store_prefixes.map{|i| i.gsub('spree/', "spree/#{@view.current_store.code}/")} unless store_prefixes.nil?
+            store_prefixes = (store_prefixes + store_prefixes.map{|i| i.gsub('spree/', "spree/#{@view.current_store.code}/")}).uniq unless store_prefixes.nil?
           end
 
           begin
@@ -74,6 +74,7 @@ module SpreeMultiDomain
             @lookup_context.find_template(name, prefixes, partial, keys, options)
           end
         end
+        alias_method_chain :find_template, :multi_store
       end
     end
 
