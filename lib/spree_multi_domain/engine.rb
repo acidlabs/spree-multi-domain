@@ -46,13 +46,16 @@ module SpreeMultiDomain
           store_path     = path
 
           if @view.respond_to?(:current_store) && @view.current_store && !@view.controller.is_a?(Spree::Admin::BaseController)
-            store_prefixes = (store_prefixes + store_prefixes.map{|i| i.gsub('spree/', "spree/#{@view.current_store.code}/")}).uniq unless store_prefixes.nil?
+            store_prefixes = (store_prefixes.map{|i| i.gsub('spree/', "spree/#{@view.current_store.code}/")} + store_prefixes).uniq unless store_prefixes.nil?
             store_path     = store_path.gsub('spree/', "spree/#{@view.current_store.code}/") unless store_path.nil?
           end
+
+          puts "=====>ActionView::PartialRenderer: #{path} #{prefixes} V/S #{store_path} #{store_prefixes}"
 
           begin
             @lookup_context.find_template(store_path, store_prefixes, true, locals, @details)
           rescue ::ActionView::MissingTemplate
+            puts "    ---> ELSE #{path} #{prefixes}"
             @lookup_context.find_template(path, prefixes, true, locals, @details)
           end
         end
@@ -62,10 +65,20 @@ module SpreeMultiDomain
 
       ActionView::TemplateRenderer.class_eval do
         def find_template_with_multi_store(name, prefixes = [], partial = false, keys = [], options = {})
-          store_prefixes = prefixes
+          if prefixes.nil?
+            store_prefixes = nil
+          elsif @view.respond_to?(:current_store) && @view.current_store && !@view.controller.is_a?(Spree::Admin::BaseController)
+            spree = /^spree\//
 
-          if @view.respond_to?(:current_store) && @view.current_store && !@view.controller.is_a?(Spree::Admin::BaseController)
-            store_prefixes = (store_prefixes + store_prefixes.map{|i| i.gsub('spree/', "spree/#{@view.current_store.code}/")}).uniq unless store_prefixes.nil?
+            store_prefixes = []
+
+            prefixes.each do |i|
+              store_prefixes << i.gsub(spree, "spree/#{@view.current_store.code}/") if i.match(spree)
+            end
+
+            store_prefixes = (store_prefixes + prefixes).uniq
+          else
+            store_prefixes = prefixes
           end
 
           begin
