@@ -50,12 +50,9 @@ module SpreeMultiDomain
             store_path     = store_path.gsub('spree/', "spree/#{@view.current_store.code}/") unless store_path.nil?
           end
 
-          puts "=====>ActionView::PartialRenderer: #{path} #{prefixes} V/S #{store_path} #{store_prefixes}"
-
           begin
             @lookup_context.find_template(store_path, store_prefixes, true, locals, @details)
           rescue ::ActionView::MissingTemplate
-            puts "    ---> ELSE #{path} #{prefixes}"
             @lookup_context.find_template(path, prefixes, true, locals, @details)
           end
         end
