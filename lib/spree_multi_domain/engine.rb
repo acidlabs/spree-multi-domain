@@ -96,7 +96,7 @@ module SpreeMultiDomain
       require 'spree/core/controller_helpers/order'
       ::Spree::Core::ControllerHelpers::Order.module_eval do
         def current_order_with_multi_domain(create_order_if_necessary = false)
-          current_order_without_multi_domain(create_order_if_necessary)
+          current_order_without_multi_domain(create_order_if_necessary: create_order_if_necessary)
 
           if @current_order and current_store
             if @current_order.store.nil?
