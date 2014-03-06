@@ -103,7 +103,7 @@ module SpreeMultiDomain
               @current_order.update_attribute(:store_id, current_store.id)
             elsif @current_order.store_id != current_store.id
               @current_order = nil
-              current_order_without_multi_domain(true)
+              current_order_without_multi_domain(create_order_if_necessary: true)
               @current_order.update_attribute(:store_id, current_store.id)
             end
           end
