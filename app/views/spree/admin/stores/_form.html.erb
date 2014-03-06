@@ -42,6 +42,14 @@
   </div>
 
   <div class="six columns">
+    <%= f.field_container :default_domain do %>
+      <%= f.label :default_domain, Spree.t(:default_domain) %><br />
+      <%= f.text_field :default_domain %>
+      <%= error_message_on :store, :default_domain %>
+    <% end %>
+  </div>
+
+  <div class="six columns">
     <%= f.field_container :domains do %>
       <%= f.label :domains, Spree.t(:domains) %><br />
       <%= f.text_area :domains, :cols => 60, :rows => 4, :class => 'fullwidth' %>

@@ -16,6 +16,7 @@ es:
     default: Default
     store_name: Nombre
     store_code: Código
+    default_domain: 'Dominio principal'
     promotion_rule_types:
       store:
         name: Tienda
