@@ -22,7 +22,7 @@ module SpreeMultiDomain
         def find_layout_with_multi_store(layout, locals)
           store_layout = layout
 
-          if @view.respond_to?(:current_store) && @view.current_store && !@view.controller.is_a?(Spree::Admin::BaseController) &&  !@view.controller.class.name=='ErrorsController'
+          if @view.respond_to?(:current_store) && @view.current_store && !@view.controller.is_a?(Spree::Admin::BaseController) && !@view.controller.class.name=='ErrorsController'
             if layout.class == Proc
               store_layout = layout.call.gsub("layouts/", "layouts/#{@view.current_store.code}/")
             else
