@@ -22,7 +22,7 @@ module SpreeMultiDomain
         def find_layout_with_multi_store(layout, locals)
           store_layout = layout
 
-          if @view.respond_to?(:current_store) && @view.current_store && !@view.controller.is_a?(Spree::Admin::BaseController) && !@view.controller.class.name=='ErrorsController'
+          if @view.respond_to?(:current_store) && @view.current_store && !@view.controller.is_a?(Spree::Admin::BaseController)
             if layout.class == Proc
               store_layout = layout.call.gsub("layouts/", "layouts/#{@view.current_store.code}/")
             else
@@ -51,7 +51,7 @@ module SpreeMultiDomain
           store_prefixes = prefixes
           store_path     = path
 
-          if @view.respond_to?(:current_store) && @view.current_store && !@view.controller.is_a?(Spree::Admin::BaseController) && !@view.controller.class.name=='ErrorsController'
+          if @view.respond_to?(:current_store) && @view.current_store && !@view.controller.is_a?(Spree::Admin::BaseController)
             store_prefixes = (store_prefixes.map{|i| i.gsub('spree/', "spree/#{@view.current_store.code}/")} + store_prefixes).uniq unless store_prefixes.nil?
             store_path     = store_path.gsub('spree/', "spree/#{@view.current_store.code}/") unless store_path.nil?
           end
@@ -70,7 +70,7 @@ module SpreeMultiDomain
         def find_template_with_multi_store(name, prefixes = [], partial = false, keys = [], options = {})
           if prefixes.nil?
             store_prefixes = nil
-          elsif @view.respond_to?(:current_store) && @view.current_store && !@view.controller.is_a?(Spree::Admin::BaseController) && !@view.controller.class.name=='ErrorsController'
+          elsif @view.respond_to?(:current_store) && @view.current_store && !@view.controller.is_a?(Spree::Admin::BaseController)
             spree = /^spree\//
 
             store_prefixes = []
