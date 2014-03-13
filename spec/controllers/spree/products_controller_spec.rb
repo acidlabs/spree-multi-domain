@@ -26,4 +26,18 @@ describe Spree::ProductsController do
       response.response_code.should == 200
     end
   end
+
+  describe 'on :index products, w/store and per page config setted' do
+    before(:each) do
+      @store = FactoryGirl.create(:store, :products_per_page => 20)
+      @products = FactoryGirl.create_list(:product, 50, :stores => [@store])
+
+      controller.stub :current_store => @store
+    end
+
+    it 'should return 20 products per page' do
+      spree_get :index
+      assigns[:products].count.should == @store.products_per_page
+    end
+  end
 end
