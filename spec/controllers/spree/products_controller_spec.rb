@@ -29,7 +29,7 @@ describe Spree::ProductsController do
 
   describe 'on :index products, w/store and per page config setted' do
     before(:each) do
-      @store = FactoryGirl.create(:store)
+      @store = FactoryGirl.create(:store, :products_per_page => 20)
       @products = FactoryGirl.create_list(:product, 50, :stores => [@store])
 
       controller.stub :current_store => @store
