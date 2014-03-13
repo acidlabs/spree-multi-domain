@@ -41,11 +41,19 @@
     <% end %>
   </div>
 
-  <div class="six columns">
+  <div class="four columns">
     <%= f.field_container :default_domain do %>
       <%= f.label :default_domain, Spree.t(:default_domain) %><br />
       <%= f.text_field :default_domain %>
       <%= error_message_on :store, :default_domain %>
+    <% end %>
+  </div>
+
+  <div class="four columns">
+    <%= f.field_container :products_per_page do %>
+      <%= f.label :products_per_page, Spree.t(:products_per_page) %><br />
+      <%= f.text_field :products_per_page %>
+      <%= error_message_on :store, :products_per_page %>
     <% end %>
   </div>
 

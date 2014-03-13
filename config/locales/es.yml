@@ -17,6 +17,7 @@ es:
     store_name: Nombre
     store_code: Código
     default_domain: 'Dominio principal'
+    products_per_page: "Produtos por página"
     promotion_rule_types:
       store:
         name: Tienda
