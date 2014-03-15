@@ -25,9 +25,6 @@ module Spree
                       :default_url => "/assets/missing/:style.png",
                       :convert_options => { :all => '-strip -auto-orient' }
 
-    include Spree::Core::S3Support
-    supports_s3 :logo
-
     def self.current(domain = nil)
       current_store = domain ? Store.by_domain(domain).first : nil
       current_store || first_found_default
@@ -35,6 +32,14 @@ module Spree
 
     def self.first_found_default
       @cached_default ||= Store.default.first
+    end
+    
+    def ensure_default_exists_and_is_unique
+      if default and not Store.default.empty?
+        Store.update_all(default: false)
+      elsif Store.default.empty?
+        self.default = true
+      end
     end
   end
 end
