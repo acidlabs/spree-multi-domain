@@ -11,3 +11,7 @@ gem 'spree_api', :github => "spree/spree", :branch => version
 gemspec
 
 gem 'ffaker'
+
+group :development, :test do
+  gem 'shoulda'
+end

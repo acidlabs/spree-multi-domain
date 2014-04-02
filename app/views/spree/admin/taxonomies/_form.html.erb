@@ -7,6 +7,12 @@
 </div>
 
 <p>
-  <%= f.label :name, Spree.t(:store) %> <span class="required">*</span><br />
-  <%= collection_select :taxonomy, :store_id, Spree::Store.all, :id, :name  %>
+  <%= f.label :stores, Spree.t(:stores)%><br />
+
+  <% Spree::Store.all.each do |store| %>
+    <%= check_box_tag "taxonomy[store_ids][]", store.id, @taxonomy.stores.include?(store) %>
+    <%= store.name %>
+    <br />
+  <% end %>
 </p>
+

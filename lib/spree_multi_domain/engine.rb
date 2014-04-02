@@ -41,6 +41,8 @@ module SpreeMultiDomain
       end
     end
 
+
+    # TODO - ErrorsController debe ser una configuracion de cada proyecto
     initializer "templates dynamically" do |app|
       ActionView::PartialRenderer.class_eval do
         def find_template_with_multi_store(path, locals)
