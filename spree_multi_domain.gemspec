@@ -17,11 +17,12 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.requirements << 'none'
 
-  version = '~> 2.1.0'
+  version = '~> 2.1'
   s.add_dependency 'spree_core', version
   s.add_dependency 'spree_backend', version
   s.add_dependency 'spree_frontend', version
   s.add_dependency 'spree_api', version
+  s.add_dependency 'spree_auth_devise', version
 
   s.add_development_dependency 'capybara', '~> 2.1.0'
   # This is the version used in Spree 1.3.2
