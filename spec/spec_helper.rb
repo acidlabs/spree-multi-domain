@@ -3,6 +3,7 @@ ENV["RAILS_ENV"] = "test"
 
 require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 
+require 'ffaker'
 require 'rspec/rails'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
@@ -13,7 +14,7 @@ Dir[File.join(File.dirname(__FILE__), "support/**/*.rb")].each {|f| require f }
 require 'spree/testing_support/factories'
 require 'spree/testing_support/controller_requests'
 require 'spree/testing_support/authorization_helpers'
-require 'factories'
+require 'spree_multi_domain/factories'
 
 RSpec.configure do |config|
   # == Mock Framework
